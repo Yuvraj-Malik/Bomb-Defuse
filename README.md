@@ -1,112 +1,88 @@
 # 💣 Bomb Diffuse Game (Arduino Project)
 
-A simple yet thrilling **Arduino-based Bomb Diffusing Game**, where players must **observe LED blinking patterns** and **cut (or press) the correct wire/button** corresponding to the LED that blinked the most — before the timer runs out!
+A fun and intense **Arduino-based Bomb Diffusing Game** 🎮  
+Observe the LEDs, remember the blinking pattern, and cut (press) the correct wire before time runs out!
 
 ---
 
-## 🚀 Overview
+## ⚡ Overview
 
-This game simulates a **bomb-defusing scenario** where:
-
-- 4 LEDs represent different wires.
-- LEDs blink in random sequences.
-- Players must **memorize which LED blinked the most**.
-- To diffuse the bomb, the player must **select the correct wire/button** within 5 seconds.
-- A **buzzer** signals success or failure.
-
-If you pick the wrong LED or run out of time — 💥 _the bomb "explodes"!_
+This project simulates a **bomb defusal challenge** using LEDs, buttons, and a buzzer.  
+Your task is simple yet nerve-racking:
+> Identify which LED blinked the most and press its corresponding button within 5 seconds — or face the *boom!* 💥
 
 ---
 
-## 🧠 How It Works
+## 🧠 Game Logic
 
-1. **Game starts** – LEDs blink in random order for a few seconds.
-2. **Observe carefully** – One LED will blink more times than the others.
-3. **Make your move** – Press or trigger the input corresponding to the LED that blinked most frequently.
-4. **Win or lose!**
-   - ✅ Correct choice → Victory tone plays.
-   - ❌ Wrong choice / Timeout → Failure tone plays.
+1. **Game starts** — LEDs blink randomly.  
+2. **Count carefully** — One LED blinks more times than others.  
+3. **Act fast** — Press the button linked to that LED within 5 seconds.  
+4. **Outcome**:
+   - ✅ **Correct choice** → Victory tone plays  
+   - ❌ **Wrong choice / Timeout** → Failure tone (boom sound)
+
+---
+
+## 🧩 Circuit Diagram
+
+Below is the full setup made using **Arduino UNO**, LEDs, push buttons, resistors, and a buzzer:
+
+![Circuit Diagram](Set-up.png)
 
 ---
 
 ## ⚙️ Hardware Requirements
 
-| Component                        | Quantity | Description                         |
-| -------------------------------- | -------- | ----------------------------------- |
-| Arduino UNO / Nano               | 1        | Main controller board               |
-| LEDs                             | 4        | Represent different wires           |
-| 220Ω Resistors                   | 4        | Current limiting resistors for LEDs |
-| Push Buttons or Detachable Wires | 4        | Inputs to simulate wire cutting     |
-| Buzzer                           | 1        | For success/failure tones           |
-| Jumper Wires                     | -        | For connections                     |
-| Breadboard                       | 1        | For prototyping                     |
+| Component | Quantity | Description |
+|------------|-----------|-------------|
+| Arduino UNO / Nano | 1 | Main microcontroller |
+| LEDs | 4 | Represent different wires |
+| 220Ω Resistors | 4 | For current limiting |
+| Push Buttons | 4 | To select (cut) the wire |
+| Buzzer | 1 | For alert tones |
+| Breadboard & Jumper Wires | - | For connections |
 
 ---
 
-## 🧩 Pin Connections
+## 🔌 Pin Connections
 
-| Component          | Arduino Pin | Type                        |
-| ------------------ | ----------- | --------------------------- |
-| LED 1–4            | 2, 3, 4, 5  | Output                      |
-| Button/Wire Inputs | 6, 7, 8, 9  | Input (with `INPUT_PULLUP`) |
-| Buzzer             | 10          | Output                      |
+| Component | Arduino Pin | Mode |
+|------------|--------------|------|
+| LED 1–4 | 2, 3, 4, 5 | OUTPUT |
+| Button Inputs | 6, 7, 8, 9 | INPUT_PULLUP |
+| Buzzer | 10 | OUTPUT |
 
 ---
 
 ## 💾 Code Explanation
 
-### 🔸 Setup Phase
-
-Initializes serial communication, sets pin modes, and prints the game start message.
-
-### 🔸 LED Blinking Phase
-
-Randomly selects LEDs to blink (`blinkLED()`), tracking the number of times each LED blinks.
-
-### 🔸 Player Input Phase
-
-Waits up to **5 seconds** for the player to select a wire/button. The input is checked via `checkAnswer()`.
-
-### 🔸 Feedback Phase
-
-Plays a **success tone** if correct or a **failure tone** if wrong or timed out.
+| Function | Purpose |
+|-----------|----------|
+| `blinkLED(index)` | Randomly blinks a given LED |
+| `checkAnswer(index)` | Verifies player’s chosen LED |
+| `playSuccessTone()` | Plays success beep sequence |
+| `playFailTone()` | Plays failure (explosion) tone |
+| `loop()` | Controls the main game logic and timing |
 
 ---
 
 ## 🎵 Sound Effects
 
-| Event      | Tone Behavior                                          |
-| ---------- | ------------------------------------------------------ |
-| ✅ Success | Two rising tones (1000Hz → 1500Hz)                     |
-| ❌ Failure | Alternating low tones (400Hz ↔ 200Hz) repeated 3 times |
-
----
-
-## 🧠 Key Functions
-
-| Function                       | Description                                   |
-| ------------------------------ | --------------------------------------------- |
-| `blinkLED(int index)`          | Blinks a given LED briefly                    |
-| `checkAnswer(int chosenIndex)` | Compares user’s choice with most-frequent LED |
-| `playSuccessTone()`            | Plays victory tone sequence                   |
-| `playFailTone()`               | Plays failure tone sequence                   |
+| Event | Tone |
+|--------|------|
+| ✅ Success | Rising dual beep (1000Hz → 1500Hz) |
+| ❌ Failure | Alternating low tones (400Hz ↔ 200Hz × 3) |
 
 ---
 
 ## 🕹️ How to Play
 
-1. Upload the code to your Arduino board.
-2. Observe the LED blinking pattern.
-3. Identify the LED that blinked most often.
-4. Press the corresponding button or detach that wire within 5 seconds.
-5. Listen for the buzzer to know if you succeeded or failed.
-
----
-
-## 🧰 Tools Used
-
-- **Arduino IDE**
-- **C/C++ (Arduino language)**
-- **Serial Monitor (for feedback)**
+1. Connect all components as per the circuit diagram.  
+2. Upload the provided Arduino code.  
+3. Open Serial Monitor to see game messages.  
+4. Watch the blinking LEDs carefully.  
+5. Press the button of the LED that blinked most frequently.  
+6. Listen for the buzzer result — you either win or blow up! 😄  
 
 ---
