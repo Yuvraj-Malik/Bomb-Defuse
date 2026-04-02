@@ -1,4 +1,4 @@
-# 💣 Bomb Diffuse Game (Arduino Project)
+# 💣 Bomb Defuse Game (Arduino Project)
 
 A fun and intense **Arduino-based Bomb Diffusing Game** 🎮  
 Observe the LEDs, remember the blinking pattern, and cut (press) the correct wire before time runs out!
